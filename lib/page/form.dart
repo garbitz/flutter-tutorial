@@ -1,4 +1,4 @@
-import 'package:tutorial/main.dart';
+import 'package:tutorial/page/drawer.dart';
 import 'package:flutter/material.dart';
 
 class MyFormPage extends StatefulWidget {
@@ -24,36 +24,10 @@ class _MyFormPageState extends State<MyFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Form'),
+        title: const Text('Form'),
       ),
       // Menambahkan drawer menu
-      drawer: Drawer(
-        child: Column(
-          children: [
-            // Menambahkan clickable menu
-            ListTile(
-              title: const Text('Counter'),
-              onTap: () {
-                // Route menu ke halaman utama
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MyHomePage()),
-                );
-              },
-            ),
-            ListTile(
-              title: const Text('Form'),
-              onTap: () {
-                // Route menu ke halaman form
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MyFormPage()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
+      drawer: const GlobalDrawer(),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -161,58 +135,58 @@ class _MyFormPageState extends State<MyFormPage> {
                           });
                         },
                       ),
-                      ListTile(
-                        leading: const Icon(Icons.co_present),
-                        title: Row(
-                          children: [
-                            Text('Umur: ${umur.round()}'),
-                          ],
-                        ),
-                        subtitle: Slider(
-                          value: umur,
-                          max: 100,
-                          divisions: 100,
-                          label: umur.round().toString(),
-                          onChanged: (double value) {
-                            setState(() {
-                              umur = value;
-                            });
-                          },
-                        ),
-                      ),
-                      ListTile(
-                        leading: const Icon(Icons.class_),
-                        title: const Text(
-                          'Kelas PBP',
-                        ),
-                        trailing: DropdownButton(
-                          value: kelasPBP,
-                          icon: const Icon(Icons.keyboard_arrow_down),
-                          items: listKelasPBP.map((String items) {
-                            return DropdownMenuItem(
-                              value: items,
-                              child: Text(items),
-                            );
-                          }).toList(),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              kelasPBP = newValue!;
-                            });
-                          },
-                        ),
-                      ),
-                      SwitchListTile(
-                        title: const Text('Practice Mode'),
-                        value: _nilaiSwitch,
-                        onChanged: (bool value) {
-                          setState(() {
-                            _nilaiSwitch = value;
-                          });
-                        },
-                        secondary: const Icon(Icons.run_circle_outlined),
-                      ),
                     ],
                   ),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.co_present),
+                  title: Row(
+                    children: [
+                      Text('Umur: ${umur.round()}'),
+                    ],
+                  ),
+                  subtitle: Slider(
+                    value: umur,
+                    max: 100,
+                    divisions: 100,
+                    label: umur.round().toString(),
+                    onChanged: (double value) {
+                      setState(() {
+                        umur = value;
+                      });
+                    },
+                  ),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.class_),
+                  title: const Text(
+                    'Kelas PBP',
+                  ),
+                  trailing: DropdownButton(
+                    value: kelasPBP,
+                    icon: const Icon(Icons.keyboard_arrow_down),
+                    items: listKelasPBP.map((String items) {
+                      return DropdownMenuItem(
+                        value: items,
+                        child: Text(items),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        kelasPBP = newValue!;
+                      });
+                    },
+                  ),
+                ),
+                SwitchListTile(
+                  title: const Text('Practice Mode'),
+                  value: _nilaiSwitch,
+                  onChanged: (bool value) {
+                    setState(() {
+                      _nilaiSwitch = value;
+                    });
+                  },
+                  secondary: const Icon(Icons.run_circle_outlined),
                 ),
                 TextButton(
                   style: ButtonStyle(
@@ -237,19 +211,17 @@ class _MyFormPageState extends State<MyFormPage> {
                               shrinkWrap: true,
                               children: <Widget>[
                                 Center(
-                                  child: Text(
-                                    'Informasi Data',
-                                    style: Theme.of(context).textTheme.headline6,
-                                  )
-                                ),
+                                    child: Text(
+                                  'Informasi Data',
+                                  style:
+                                      Theme.of(context).textTheme.headline6,
+                                )),
                                 const SizedBox(height: 20),
-                                Text(
-                                  'Nama Lengkap: $_namaLengkap\n' 
-                                  'Jenjang: ${jenjangSarjana ? 'Sarjana' : jenjangDiploma ? 'Diploma' : jenjangMagister ? 'Magister' : 'Doktor'}\n'
-                                  'Umur: $umur\n'
-                                  'Kelas PBP: $kelasPBP\n'
-                                  'Practice Mode: ${_nilaiSwitch ? 'Ya' : 'Tidak'}'
-                                ),
+                                Text('Nama Lengkap: $_namaLengkap\n'
+                                    'Jenjang: ${jenjangSarjana ? 'Sarjana' : jenjangDiploma ? 'Diploma' : jenjangMagister ? 'Magister' : 'Doktor'}\n'
+                                    'Umur: $umur\n'
+                                    'Kelas PBP: $kelasPBP\n'
+                                    'Practice Mode: ${_nilaiSwitch ? 'Ya' : 'Tidak'}'),
                                 const SizedBox(height: 20),
                                 TextButton(
                                   onPressed: () {
